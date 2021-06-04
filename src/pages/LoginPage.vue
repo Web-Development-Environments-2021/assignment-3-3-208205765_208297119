@@ -100,11 +100,18 @@ export default {
             password: this.form.password
           }
         );
+        if(response.statusCode==401){
+          this.form.submitError="Username or password is incorrect";
+        }
+        else if(response.statusCode==201){
+          this.form.submitError=undefined;
+          console.log(this.$root.store.login);
+          this.$root.store.login(this.form.username);
+          this.$router.push("/");
+        }
         // console.log(response);
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
-        this.$router.push("/");
+        
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
