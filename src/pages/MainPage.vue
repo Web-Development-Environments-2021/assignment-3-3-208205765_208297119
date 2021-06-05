@@ -1,9 +1,14 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <LoginPage v-if="!$root.store.username"></LoginPage>
-    <FavoriteGames v-else></FavoriteGames>
+    <div id="leftScreen">
     <LeagueInfo></LeagueInfo>
+    </div>
+    <div id="rightScreen">
+    <LoginPage v-if="!$root.store.username"></LoginPage>
+    <FavoriteGames v-else-if="favoriteGames" :games="favoriteGames"></FavoriteGames>
+    <span style="right:0;" v-else> {{errorMessageForLoggedInUser}}</span>
+    </div>
   </div>
 </template>
 
@@ -16,6 +21,34 @@ export default {
     LeagueInfo, 
     LoginPage, 
     FavoriteGames
+  },
+  data(){
+    return{
+      errorMessageForLoggedInUser:"No Favorite Games",
+      favoriteGames:undefined
+    }
+  },
+  updated(){
+    try{
+      if(this.$root.store.username){
+        this.getFavoriteGames();
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
+  },
+  methods:{
+    async getFavoriteGames(){
+      this.axios.withCredentials=true;
+      const response=await this.axios.get("http://localhost:3000/mainPage/rightColumn",{withCredentials:true});
+      if(response.status==204){
+        this.favoriteGames=undefined;
+      }
+      else if(response.status==200){
+        this.favoriteGames=response.data;
+      }
+    }
   }
 };
 </script>
@@ -31,5 +64,11 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+#leftScreen{
+  left: 0;
+}
+#rightScreen{
+  right: 0;;
 }
 </style>

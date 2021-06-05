@@ -1,4 +1,6 @@
 <template>
+  <div>
+    
     <div class="league-preview">
       <b-card
       img-alt="Image"
@@ -11,21 +13,54 @@
         Season: {{ season }}
         <br/>
         Stage: {{ stage }}
+        <br/>
+       <div>
+         <span> Next Game:</span>
+         <nextGame :game="nextGame" v-if="nextGame"></nextGame>
+       </div> 
       </b-card-text>
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
   </div>
+    
+  </div>
 </template>
 
 <script>
+import GamePreview from "../components/GamePreview.vue";
+
 export default {
+  components:{
+       nextGame: GamePreview
+      },
  data() {
     return {
-      leagueName: "superliga", 
-      season: "season", 
-      stage: "stage"
+      
+      leagueName: "", 
+      season: "", 
+      stage: "",
+      nextGame:undefined
     };
   },
+  mounted(){
+    try{
+      this.getData();
+    }
+    catch(err){
+      console.log(err);
+    }
+  },
+  methods:{
+    async getData(){
+      const response=await this.axios.get("http://localhost:3000/mainPage/leftColumn");
+      if(response.status==200){
+        this.nextGame=response.data.next_planned_game;
+      }
+      this.leagueName=response.data.league_name;
+      this.season=response.data.current_season_name;
+      this.stage=response.data.current_stage_name;
+    }
+  }
 }
 </script>
 

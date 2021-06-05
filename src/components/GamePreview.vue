@@ -1,13 +1,13 @@
 <template>
   <div class="game-preview">
-    <div :title="id" class="game-title">
-      <b>Game Id:</b> {{ id }}
-    </div>
+    
     <ul class="game-content">
       <li> host: {{ hostTeam }}</li>
       <li> guest: {{ guestTeam }}</li>
       <li> date: {{ date }}</li>
-      <li> time: {{ hour }}</li>
+      <li> hour: {{ hour }}</li>
+      <li> stadium: {{stadium}}</li>
+      <li> referee: {{referee_name}} </li>
     </ul>
   </div>
 </template>
@@ -16,29 +16,22 @@
 export default {
   name: "GamePreview",
   props: {
-      id: {
-        type: Number,
-        required: true
-      },
-      hostTeam: {
-        type: String,
-        required: true
-      },
-      guestTeam: {
-        type: String,
-        required: true
-      },
-      date: {
-        type: String,
-        required: true
-      },
-      hour: {
-        type: String,
-        required: true
-      }
+      game: Object
   }, 
+  data(){
+    return{
+      hostTeam:this.game.home_team,
+      guestTeam:this.game.away_team,
+      date:this.game.date,
+      hour:this.game.hour,
+      stadium:this.game.stadium,
+      referee_name:this.game.referee_name
+    };
+
+  },
   mounted(){
-    console.log("game preview mounted")
+    console.log("game preview mounted");
+    
   } 
 };
 </script>
