@@ -94,16 +94,14 @@ export default {
     async Login() {
       try {
         const response = await this.axios.post(
-          "https://localhost:3000/user/Login",
+          "http://localhost:3000/Login",
           {
-            username: this.form.username,
+            user_name: this.form.username,
             password: this.form.password
           }
         );
-        if(response.statusCode==401){
-          this.form.submitError="Username or password is incorrect";
-        }
-        else if(response.statusCode==201){
+        
+        if(response.status==200){
           this.form.submitError=undefined;
           console.log(this.$root.store.login);
           this.$root.store.login(this.form.username);
@@ -114,7 +112,7 @@ export default {
         
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        this.form.submitError = err.response.data;
       }
     },
     onLogin() {

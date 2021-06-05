@@ -24,7 +24,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TooltipPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -37,7 +38,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  TooltipPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -70,7 +72,7 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   // username: localStorage.username,
-  username: "fsd",
+  username: undefined,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
