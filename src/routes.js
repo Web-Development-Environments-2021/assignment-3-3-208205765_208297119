@@ -33,10 +33,36 @@ const routes = [
     component:()=> import("./pages/AboutPage")
   },
   {
+    path: "/playerPage/:player_id",
+    name: "playerPage",
+    component:()=> import("./pages/PlayerPage")
+  },
+  {
+    path: "/teamPage/:team_name",
+    name: "teamPageByName",
+    component:()=> import("./pages/TeamPage")
+  },
+  {
+    path: "/teamPage/:team_id",
+    name: "teamPageById",
+    component:()=> import("./pages/TeamPage")
+  },
+  {
+    path:"/favoriteGames",
+    name:"favoriteGamesPage",
+    component:()=>import("./pages/FavoriteGamesPage")
+  },
+  {
+    path: "/addGamesToSystem",
+    name:"AddGamesToSystemPage",
+    component:()=>import("./pages/AddGamesToSystemPage")
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound
   }
+ 
 ];
 
 export default routes;

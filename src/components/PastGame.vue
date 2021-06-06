@@ -22,7 +22,7 @@ props:{
 data(){
     return{
         result:this.pastGame.result,
-        eventSchedule:this.pastGame.eventsArr
+        eventSchedule:this.pastGame.events_schedule
     }
 }
 }

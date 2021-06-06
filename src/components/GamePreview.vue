@@ -2,8 +2,8 @@
   <div class="game-preview">
     
     <ul class="game-content">
-      <li> host: {{ hostTeam }}</li>
-      <li> guest: {{ guestTeam }}</li>
+      <li @click="moveToTeamPage(hostTeam)"> host: {{ hostTeam }}</li>
+      <li @click="moveToTeamPage(guestTeam)"> guest: {{ guestTeam }}</li>
       <li> date: {{ date }}</li>
       <li> hour: {{ hour }}</li>
       <li> stadium: {{stadium}}</li>
@@ -32,6 +32,11 @@ export default {
   mounted(){
     console.log("game preview mounted");
     
+  },
+  methods:{
+    moveToTeamPage(team_name){
+      this.$router.push({name:"teamPageByName",params:{team_name:team_name}});
+    }
   } 
 };
 </script>

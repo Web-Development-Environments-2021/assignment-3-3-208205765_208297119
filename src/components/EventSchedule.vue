@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Event v-for="(e,index) in eventsArr" :key="index"></Event>
+      <Event v-for="(e,index) in events" :key="index" :event="e"></Event>
   </div>
 </template>
 
@@ -11,11 +11,11 @@ export default {
         Event
     },
     props:{
-        eventsArr:Object
+        eventsArr:Array
     },
     data(){
         return{
-            eventsArr:this.eventsArr
+            events:this.eventsArr
         }
     }
 }

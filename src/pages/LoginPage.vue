@@ -104,7 +104,7 @@ export default {
         if(response.status==200){
           this.form.submitError=undefined;
           console.log(this.$root.store.login);
-          this.$root.store.login(this.form.username);
+          this.$root.store.login(this.form.username,response.data);
           this.$router.push("/").catch(()=>{});
         }
         // console.log(response);

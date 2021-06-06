@@ -28,7 +28,7 @@ export default {
       favoriteGames:undefined
     }
   },
-  updated(){
+  mounted(){
     try{
       if(this.$root.store.username){
         this.getFavoriteGames();

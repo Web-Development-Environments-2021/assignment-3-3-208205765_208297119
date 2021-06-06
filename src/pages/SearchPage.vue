@@ -7,8 +7,7 @@
         <b-button variant="success">Search</b-button>
       </b-input-group-append>
     </b-input-group>
-      <br/>
-      Your search Query: {{ searchQuery }}
+     
   </div>
 </template>
 

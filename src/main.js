@@ -25,7 +25,10 @@ import {
   ToastPlugin,
   LayoutPlugin, 
   InputGroupPlugin,
-  TooltipPlugin
+  TooltipPlugin,
+  DropdownPlugin,
+  FormDatepickerPlugin,
+  FormTimepickerPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -39,7 +42,10 @@ import {
   ToastPlugin,
   LayoutPlugin, 
   InputGroupPlugin,
-  TooltipPlugin
+  TooltipPlugin,
+  DropdownPlugin,
+  FormTimepickerPlugin,
+  FormDatepickerPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -66,6 +72,7 @@ axios.interceptors.response.use(
   }
 );
 
+axios.defaults.withCredentials=true;
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
@@ -73,15 +80,20 @@ Vue.config.productionTip = false;
 const shared_data = {
   // username: localStorage.username,
   username: undefined,
-  login(username) {
+  isAdmin:undefined,
+  login(username,isAdmin) {
     localStorage.setItem("username", username);
+    localStorage.setItem("isAdmin",isAdmin);
     this.username = username;
+    this.isAdmin=isAdmin;
     console.log("login", this.username);
   },
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem("isAdmin");
     this.username = undefined;
+    this.isAdmin=undefined;
   }
 };
 console.log(shared_data);

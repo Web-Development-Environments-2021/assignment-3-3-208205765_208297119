@@ -1,12 +1,7 @@
 <template>
   <div>
-    <GamePreview
-      v-for="g in games"
-      :hostTeam="g.hostTeam" 
-      :guestTeam="g.guestTeam" 
-      :date="g.date" 
-      :hour="g.hour" 
-      :key="g.id"></GamePreview>
+    <GamePreview v-for="g in games" :key="g.id" :game="g"></GamePreview>
+      
   </div>
 </template>
 
