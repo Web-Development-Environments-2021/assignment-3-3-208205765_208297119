@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
+    <div v-if="!loading">
     <div id="leftScreen">
     <LeagueInfo></LeagueInfo>
     </div>
@@ -9,6 +10,8 @@
     <FavoriteGames v-else-if="favoriteGames" :games="favoriteGames"></FavoriteGames>
     <span style="right:0;" v-else> {{errorMessageForLoggedInUser}}</span>
     </div>
+    </div>
+    <span v-if="loading">Loading...</span>
   </div>
 </template>
 
@@ -25,21 +28,18 @@ export default {
   data(){
     return{
       errorMessageForLoggedInUser:"No Favorite Games",
-      favoriteGames:undefined
+      favoriteGames:undefined,
+      loading:true
     }
   },
-  mounted(){
-    try{
-      if(this.$root.store.username){
-        this.getFavoriteGames();
-      }
-    }
-    catch(error){
-      console.log(error);
-    }
+  created(){
+    this.getFavoriteGames()
   },
+  
   methods:{
     async getFavoriteGames(){
+      try{
+        if(this.$root.store.username){
       this.axios.withCredentials=true;
       const response=await this.axios.get("http://localhost:3000/mainPage/rightColumn",{withCredentials:true});
       if(response.status==204){
@@ -48,6 +48,13 @@ export default {
       else if(response.status==200){
         this.favoriteGames=response.data;
       }
+        }
+        this.loading=false;
+    }
+    
+    catch(error){
+      console.log(error);
+    }
     }
   }
 };

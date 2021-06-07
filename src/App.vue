@@ -8,6 +8,7 @@
          <b-nav-item :to="{name: 'about'}">About</b-nav-item>
          <b-nav-item :to="{name: 'currentStageGames'}">Current Stage Games</b-nav-item>
           <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+          <b-nav-item :to="{name:'AddGamesToSystemPage'}" v-if="$root.store.isAdmin">Add Games To System</b-nav-item>
       </b-navbar-nav>
       <b-collapse id="nav-collapse" is-nav>
              
@@ -20,7 +21,6 @@
           <template #button-content>
             {{$root.store.username}}
           </template>
-          <b-dropdown-item href="#" v-if="$root.store.isAdmin" @click="moveToAddGamesToSystemPage">Add GAmes To System</b-dropdown-item>
           <b-dropdown-item href="#" @click="moveToFavoriteGames">My Games</b-dropdown-item>
           <b-dropdown-item href="#" @click="Logout">Log Out</b-dropdown-item>
         </b-nav-item-dropdown>

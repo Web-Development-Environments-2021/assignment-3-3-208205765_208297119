@@ -1,7 +1,7 @@
 <template>
   <div id="mainDiv">
       <div id="futureGames" v-if="futureGames">
-          <div v-if="$root.store.username">
+          <div v-if="!$root.store.username">
               <FutureGame v-for="g in futureGames" :key="g.id" :game="g"></FutureGame>
           </div>
           <div v-else>
