@@ -121,9 +121,9 @@ export default {
       if(this.playersArray.length>0){
         let filteredPlayers=[];
         if(this.playerPositionFilter && this.playerTeamFilter){
-          for(player of this.playersArray){
-            if(player.team_name==this.playerTeamFilter && player.position_number==this.playerPositionFilter){
-              filteredPlayers.push(player);
+          for(let i=0;i<this.playersArray.length;i++){
+            if(this.playersArray[i].team_name==this.playerTeamFilter && this.playersArray[i].position_number.toString()==this.playerPositionFilter){
+              filteredPlayers.push(this.playersArray[i]);
             }
           }
         }
@@ -135,9 +135,9 @@ export default {
           }
         }
         else if(this.playerTeamFilter){
-          for(player of this.playersArray){
-            if(player.team_name==this.playerTeamFilter){
-              filteredPlayers.push(player);
+          for(let i=0;i<this.playersArray.length;i++){
+            if(this.playersArray[i].team_name==this.playerTeamFilter){
+              filteredPlayers.push(this.playersArray[i]);
             }
           }
         }
@@ -212,9 +212,9 @@ export default {
       }
       else{
         let mergedFilteredAndSortedArray=[];
-        for( player of this.sortedPlayersArray){
-          if(this.filteredPlayersArray.includes(player)){
-            mergedFilteredAndSortedArray.push(player);
+        for( let i=0;i<this.sortedPlayersArray;i++){
+          if(this.filteredPlayersArray.includes(this.sortedPlayersArray[i])){
+            mergedFilteredAndSortedArray.push(this.sortedPlayersArray[i]);
           }
         }
         this.sortedAndFilteredArray=mergedFilteredAndSortedArray;
