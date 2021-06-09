@@ -1,7 +1,7 @@
 <template>
   <div>
       <span @click="moveToTeamPage"> Team Name: {{team.team_name}}</span>
-      <img :src="team.team_logo" @click="moveToTeamPage">
+      <img :src="team.team_logo" @click="moveToTeamPage" width="300" height="200">
   </div>
 </template>
 
