@@ -2,22 +2,29 @@
   <div class="game-preview">
     
     <ul class="game-content">
-      <li @click="moveToTeamPage(hostTeam)"> host: {{ hostTeam }}</li>
-      <li @click="moveToTeamPage(guestTeam)"> guest: {{ guestTeam }}</li>
+      <li class="team" @click="moveToTeamPage(hostTeam)"> host: {{ hostTeam }}</li>
+      <li class="team" @click="moveToTeamPage(guestTeam)"> guest: {{ guestTeam }}</li>
       <li> date: {{ date }}</li>
       <li> hour: {{ hour }}</li>
       <li> stadium: {{stadium}}</li>
       <li> referee: {{referee_name}} </li>
+      <li v-if="result">result: {{result}}</li>
     </ul>
+    <h3 v-if="eventsArr && eventsArr.length>0">Events In The Game:</h3>
+    <EventScheduler v-if="eventsArr && eventsArr.length>0" :eventsArr="eventsArr"></EventScheduler>
   </div>
 </template>
 
 <script>
+import EventScheduler from "./EventSchedule.vue";
 export default {
   name: "GamePreview",
   props: {
       game: Object
-  }, 
+  },
+  components:{
+    EventScheduler
+  },
   data(){
     return{
       hostTeam:this.game.home_team,
@@ -25,7 +32,9 @@ export default {
       date:this.game.date,
       hour:this.game.hour,
       stadium:this.game.stadium,
-      referee_name:this.game.referee_name
+      referee_name:this.game.referee_name,
+      result:this.game.result,
+      eventsArr:this.game.events_schedule
     };
 
   },
@@ -43,11 +52,8 @@ export default {
 
 <style>
 .game-preview {
-  display: inline-block;
-  width: 250px;
-  height: 200px;
+  width: auto;
   position: relative;
-  margin: 10px 10px;
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;
@@ -62,7 +68,12 @@ export default {
 
 .game-preview .game-content {
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
+}
+
+.team:hover{
+  cursor: pointer;
+  color: aqua;
 }
 
 

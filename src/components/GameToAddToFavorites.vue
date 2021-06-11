@@ -1,7 +1,7 @@
 <template>
   <div>
       <GamePreview :game="game"></GamePreview>
-      <button :click="addToFavorites">Add To Favorites </button>
+      <b-button style="margin-left: 1%; margin-top:0.5%;margin-bottom:0.5%" variant="outline-primary" :click="addToFavorites">Add To Favorites </b-button>
   </div>
 </template>
 
@@ -28,5 +28,5 @@ methods:{
 </script>
 
 <style>
-
+   
 </style>

@@ -7,7 +7,7 @@
       </div>
       <div v-if="team.games.past_games_arr!=[]">
           <h2>Past Games</h2>
-          <PastGame v-for="game in team.games.past_games_arr" :key="game.id" :pastGame="game"></PastGame>
+          <GamePreview v-for="game in team.games.past_games_arr" :key="game.id" :game="game"></GamePreview>
       </div>
   </div>
 </template>
@@ -15,10 +15,9 @@
 <script>
 import PlayerPreview from "../components/PlayerPreview.vue";
 import GamePreview from "../components/GamePreview.vue";
-import PastGame from "../components/PastGame.vue";
 export default {
     components:{
-        PlayerPreview,GamePreview,PastGame
+        PlayerPreview,GamePreview
     },
     data(){
         return{

@@ -1,6 +1,10 @@
 <template>
-  <div id="mainDiv">
+  <div >
+    <h1 id="title">Games Page</h1>
+    <div v-if="!loading">
+    <div class="split left">  
       <div id="futureGames" v-if="futureGames">
+        <h3 style="margin-left:1%;">Future Games</h3>
           <div v-if="!$root.store.username">
               <FutureGame v-for="g in futureGames" :key="g.id" :game="g"></FutureGame>
           </div>
@@ -8,25 +12,33 @@
             <FutureGameToAddToFavorites v-for="g in futureGames" :key="g.id" :game="g"></FutureGameToAddToFavorites>
           </div>
       </div>
-      <div id="pastGames" v-if="pastGames">
-        <PastGame v-for="g in pastGames" :key="g.id" :pastGame="g"></PastGame>
+     <span v-else>No Future Games</span>
       </div>
+      <div class="split right">
+      <div id="pastGames" v-if="pastGames">
+        <h3>Past Games</h3>
+        <FutureGame v-for="g in pastGames" :key="g.id" :game="g"></FutureGame>
+      </div>
+      <span v-else>No Past Games</span>
+    </div>
+  </div>
+  <span v-else id="loading">Loading...</span>
   </div>
 </template>
 
 <script>
 import FutureGame from "../components/GamePreview.vue";
-import PastGame from "../components/PastGame.vue";
 import FutureGameToAddToFavorites from "../components/GameToAddToFavorites.vue";
 export default {
   components:{
-    FutureGame,PastGame,FutureGameToAddToFavorites
+    FutureGame,FutureGameToAddToFavorites
   },
   data(){
     return{
       pastGames:undefined,
       futureGames:undefined,
-      errorMessage:"No games in database"
+      errorMessage:"No games in database",
+      loading:true
     }
   },
   mounted(){
@@ -48,15 +60,40 @@ export default {
           this.futureGames=response.data.future_games_arr;
         }
       }
-     
+     this.loading=false;
     }
   }
 }
 </script>
 
 <style>
-  #mainDiv{
-    display: flexbox;
-    flex-direction: row;
+ 
+  #title{
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 1%;
   }
+  .split {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  z-index: 1;
+  overflow:auto;
+}
+
+.left {
+  left: 0;
+ 
+}
+
+.right {
+  right: 0;
+  
+}
+#loading{
+  margin-left: 1%;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
 </style>

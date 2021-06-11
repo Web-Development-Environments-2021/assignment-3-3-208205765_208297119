@@ -1,8 +1,9 @@
 <template>
   <div>
     
-    <div class="league-preview">
+    <div class="league-preview" v-if="show">
       <b-card
+      bg-variant="secondary"
       img-alt="Image"
       tag="article"
       style="max-width: 20rem;"
@@ -16,12 +17,13 @@
         <br/>
        <div>
          <span> Next Game:</span>
+         <br/>
          <nextGame :game="nextGame" v-if="nextGame"></nextGame>
        </div> 
       </b-card-text>
-      <b-button href="#" variant="primary">Go somewhere</b-button>
-    </b-card>
+      </b-card>
   </div>
+  
     
   </div>
 </template>
@@ -32,6 +34,9 @@ import GamePreview from "../components/GamePreview.vue";
 export default {
   components:{
        nextGame: GamePreview
+      },
+      props:{
+        show:Boolean
       },
  data() {
     return {
@@ -44,8 +49,11 @@ export default {
   },
   mounted(){
     try{
-      this.getData();
-    }
+      this.getData().then(()=>{
+        this.$emit('finishLoading')
+      });
+      
+      }
     catch(err){
       console.log(err);
     }
@@ -67,10 +75,7 @@ export default {
 <style>
 .league-preview {
   display: inline-block;
-  width: 250px;
-  height: 200px;
   position: relative;
-  margin: 10px 10px;
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;

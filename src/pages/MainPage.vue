@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
-    <div v-if="!loading">
-    <div id="leftScreen">
-    <LeagueInfo></LeagueInfo>
+    <h1 >Main Page</h1>
+    
+    <div class="leftScreen screen">
+    <LeagueInfo @finishLoading="changeLoading" :show="loadingNextGame"></LeagueInfo>
     </div>
-    <div id="rightScreen">
-    <LoginPage v-if="!$root.store.username"></LoginPage>
+    <div class="rightScreen screen" v-if="!loadingFavoriteGames && loadingNextGame">
+    <LoginPage  v-if="!$root.store.username"></LoginPage>
     <FavoriteGames v-else-if="favoriteGames" :games="favoriteGames"></FavoriteGames>
-    <span style="right:0;" v-else> {{errorMessageForLoggedInUser}}</span>
+    <span  v-else> {{errorMessageForLoggedInUser}}</span>
     </div>
-    </div>
-    <span v-if="loading">Loading...</span>
+    
+    <label v-if="!loadingNextGame || loadingFavoriteGames">Loading...</label>
   </div>
 </template>
 
@@ -29,7 +29,8 @@ export default {
     return{
       errorMessageForLoggedInUser:"No Favorite Games",
       favoriteGames:undefined,
-      loading:true
+      loadingNextGame:false,
+      loadingFavoriteGames:true
     }
   },
   created(){
@@ -49,33 +50,38 @@ export default {
         this.favoriteGames=response.data;
       }
         }
-        this.loading=false;
+        this.loadingFavoriteGames=false;
     }
     
     catch(error){
       console.log(error);
     }
-    }
+    },
+    changeLoading(){
+      while(this.loadingFavoriteGames){}
+      this.loadingNextGame=true;
+      }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-.RandomRecipes {
-  margin: 10px 0 10px;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
-#leftScreen{
-  left: 0;
-}
-#rightScreen{
-  right: 0;;
-}
+<style >
+.container{
+  background-image: url('../assets/1200px-Superliga_2010.svg.png');
+  
+ }
+  
+ .screen{
+   height: 100%;
+   width: 50%;
+   position: fixed;
+   z-index: 1;
+ }
+ .leftScreen{
+   left: 0;
+   margin-left: 1%;
+ }
+ .rightScreen{
+   right: 0;
+ }
 </style>

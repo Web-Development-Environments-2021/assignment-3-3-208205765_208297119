@@ -34,17 +34,12 @@
 <script>
 export default {
   name: "App",
-  data(){
-    return{
-      isAdmin:false
-    }
-  },
-  
+    
   methods: {
     Logout() {
       this.$root.store.logout();
+      this.axios.post(`http://localhost:3000/Logout`);
       this.$root.toast("Logout", "User logged out successfully", "success");
-      this.isAdmin=false;
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
@@ -69,6 +64,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  
+  
 }
 
 #nav {

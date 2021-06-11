@@ -7,6 +7,7 @@
         label-cols-sm="3"
         label="Username:"
         label-for="username"
+        description="username should contain only letters and 3 to 8 charachters long"
       >
       
         <b-form-input
@@ -15,8 +16,7 @@
           type="text"
           :state="validateState('username')"
         ></b-form-input>
-        <button type="button" data-toggle="tooltip" data-placment="right" title="Your username should contain only letters and 3 to 8 charachters long">?</button>
-        
+               
         <b-form-invalid-feedback v-if="!$v.form.username.required">
           Username is required
         </b-form-invalid-feedback>
@@ -50,6 +50,7 @@
         label-cols-sm="3"
         label="Password:"
         label-for="password"
+        description="password should be 5-10 characters long and contain at least one digit and one special character"
       >
         <b-form-input
           id="password"
@@ -58,7 +59,6 @@
           :state="validateState('password')"
           
         ></b-form-input>
-        <button type="button" data-toggle="tooltip" data-placment="right" title="Your password should be 5-10 characters long and contain at least one digit and one special character">?</button>
         <b-form-invalid-feedback v-if="!$v.form.password.required">
           Password is required
         </b-form-invalid-feedback>
@@ -280,6 +280,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  margin-top: 1%;
 }
 
 </style>

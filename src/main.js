@@ -13,40 +13,8 @@ const router = new VueRouter({
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import {
-  FormGroupPlugin,
-  FormPlugin,
-  FormInputPlugin,
-  ButtonPlugin,
-  CardPlugin,
-  NavbarPlugin,
-  FormSelectPlugin,
-  AlertPlugin,
-  ToastPlugin,
-  LayoutPlugin, 
-  InputGroupPlugin,
-  TooltipPlugin,
-  DropdownPlugin,
-  FormDatepickerPlugin,
-  FormTimepickerPlugin
-} from "bootstrap-vue";
-[
-  FormGroupPlugin,
-  FormPlugin,
-  FormInputPlugin,
-  ButtonPlugin,
-  CardPlugin,
-  NavbarPlugin,
-  FormSelectPlugin,
-  AlertPlugin,
-  ToastPlugin,
-  LayoutPlugin, 
-  InputGroupPlugin,
-  TooltipPlugin,
-  DropdownPlugin,
-  FormTimepickerPlugin,
-  FormDatepickerPlugin
-].forEach((x) => Vue.use(x));
+import {BootstrapVue} from "bootstrap-vue";
+Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 
 axios.interceptors.request.use(

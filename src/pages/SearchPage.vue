@@ -27,7 +27,7 @@
     </b-input-group>
     <br/>
     <p v-if="searching">Searching...</p>
-    <div id="results" v-else-if="!searching && pressedSearchButton">
+    <div id="results" v-else-if="!searching && (pressedSearchButton || playersArray.length>0 || teamsArray.length>0)">
     <h1>Results:</h1>
     <span v-if="playersArray.length==0 && teamsArray.length==0 && searchQuery!='' && !searching">No Results!</span>
     <div v-else>
@@ -113,9 +113,11 @@ export default {
     },
     async getLastResults(){
       const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
-      this.playersArray=response.data.playersArray;
+      if(response.status==200){
+        this.playersArray=response.data.playersArray;
       this.coachesArray=response.data.coachesArray;
       this.teamsArray=response.data.teamsArray;
+      }
     },
     filterPlayers(){
       if(this.playersArray.length>0){
