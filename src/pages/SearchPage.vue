@@ -1,23 +1,23 @@
 <template>
-  <div>
-    <h1 class="title">Search Page</h1>
-    <span>Sort Players By:</span>
-     <select v-model="sortPlayersBy" @change="sortPlayersArray" >
+  <div id="searchDiv">
+    <h1 class="title" style="color:white">Search Page</h1>
+    <span style="margin-left:1%; color:white">Sort Players By:</span>
+     <select style="margin-left:1%; color:white" v-model="sortPlayersBy" @change="sortPlayersArray" >
        <option value=""></option>
        <option value="playerName" >Player Name</option>
        <option value="teamName" >Team Name</option>
    </select>
    <br/>
-   <span> Sort Teams By:</span>
-   <input type="checkbox" id="checkBox" v-model="sortTeamsBy" value="sortByName" @change="sortTeams">
-   <label for="checkBox">Team Name</label>
+   <span style="margin-left:1%; color:white"> Sort Teams By:</span>
+   <input style="margin-left:1%" type="checkbox" id="checkBox" v-model="sortTeamsBy" value="sortByName" @change="sortTeams">
+   <label style="margin-left:0.5%;color:white" for="checkBox">Team Name</label>
    <br/>
-   <h3>Filters</h3>
-   <b-input-group prepend="Player Position"><b-form-input v-model="playerPositionFilter"></b-form-input></b-input-group>
-   <b-input-group prepend="Team Name"><b-form-input v-model="playerTeamFilter"></b-form-input></b-input-group>
+   <h3 style="color:white">Filters</h3>
+   <b-input-group class="filterInputs" prepend="Player Position"><b-form-input  v-model="playerPositionFilter"></b-form-input></b-input-group>
+   <b-input-group class="filterInputs" prepend="Team Name"><b-form-input  v-model="playerTeamFilter"></b-form-input></b-input-group>
     <b-input-group><b-button :disabled="isDisabled"  variant="primary" @click="filterPlayers">Filter</b-button></b-input-group>
     <br/>
-      <h3>Query</h3>
+      <h3 style="color:white">Query</h3>
     <b-input-group prepend="Search Query:" id="search-input">
       <b-form-input v-model="searchQuery"></b-form-input>
      
@@ -41,6 +41,7 @@
         </div>
     </div>
     <div id="teamsDiv" v-if="teamsArray.length!=0">
+      <h2>Teams</h2>
       <div v-if="!sortTeamsBy">
       <teamPreview v-for="team in teamsArray" :key="team.team_id" :team="team" ></teamPreview></div>
       <div v-else>
@@ -229,7 +230,13 @@ export default {
 <style scoped>
 
 #search-input {
-  margin-left: 20px; 
   width: 500px; 
+}
+
+.filterInputs{
+  width:500px ;
+}
+#searchDiv{
+  color:white
 }
 </style>

@@ -1,14 +1,23 @@
 <template>
-  <div v-if="team">
-      <PlayerPreview v-for="player in team.player" :key="player.id" :player="player"></PlayerPreview>
-      <div v-if="team.games.future_games_arr!=[]">
+  <div style="width:100%; height:100%" >
+      <h1 style="text-align:Center">Team Page</h1>
+      <div id="teamDiv" v-if=!loading>
+          <div class="playersDiv split">
+       <h2>Players</h2>   
+      <PlayerPreview v-for="player in team.players" :key="player.player_id" :player="player"></PlayerPreview>
+          </div>
+      <div  class="futureGamesDiv split">
           <h2>Future Games</h2>  
           <GamePreview v-for="game in team.games.future_games_arr" :key="game.id" :game="game"></GamePreview>
+          <p v-if="team.games.future_games_arr.length==0">There are no future games</p>
       </div>
-      <div v-if="team.games.past_games_arr!=[]">
+      <div class="pastGamesDiv split">
           <h2>Past Games</h2>
           <GamePreview v-for="game in team.games.past_games_arr" :key="game.id" :game="game"></GamePreview>
+          <p v-if="team.games.past_games_arr.length==0">There are no past games</p>
       </div>
+      </div>
+      <span id="loadingMessage" v-else>Loading...</span>
   </div>
 </template>
 
@@ -21,7 +30,8 @@ export default {
     },
     data(){
         return{
-            team:undefined
+            team:undefined,
+            loading:true
         }
     },
     mounted(){
@@ -34,7 +44,6 @@ export default {
     },
     methods:{
         async getTeam(){
-            let i=5;
             if(this.$route.params.team_name){
                 const team=await this.axios.get(`http://localhost:3000/personalPages/teamPageByName/${this.$route.params.team_name}`);
                 this.team=team.data;
@@ -43,11 +52,39 @@ export default {
                 const team=await this.axios.get(`http://localhost:3000/personalPages/teamPage/${this.$route.params.team_id}`);
                 this.team=team.data;
             }
+            this.loading=false;
         }
     }
 }
 </script>
 
 <style>
+.split{
+    height: 100%;
+    overflow: auto;
+    z-index: 1;
+    margin-right:1%; 
+}
+
+.playersDiv{
+    width: 20%;
+    float: left;
+}
+
+.futureGamesDiv{
+    width: 25%;
+    float: left;
+}
+
+.pastGamesDiv{
+    width: 46%;
+    float:right;
+    position: relative;
+}
+
+#loadingMessage{
+    font-size: 24px;
+    margin-left: 1%;
+}
 
 </style>

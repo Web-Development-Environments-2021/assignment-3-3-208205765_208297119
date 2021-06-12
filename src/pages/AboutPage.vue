@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-jumbotron  header="About Page" lead="This page is a page about the creators of this website">
+      <b-jumbotron style="background:none; color:grey"  header="About Page" lead="This page is a page about the creators of this website">
           <p>Ron Tyntarev and Tomer Aizikovich are third year students of Software And Information Systems Engineering students.</p>
           <br/>
           <p>Links to our previous works:</p>

@@ -66,11 +66,6 @@ export default {
 </script>
 
 <style >
-.container{
-  background-image: url('../assets/1200px-Superliga_2010.svg.png');
-  
- }
-  
  .screen{
    height: 100%;
    width: 50%;

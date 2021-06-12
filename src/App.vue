@@ -64,8 +64,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
-  
-  
+  background: url('./assets/danish-superliga-logo.png') no-repeat center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: content-box;
+}
+
+html{
+  background: url('./assets/danish-superliga-logo.png') no-repeat center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: content-box;
 }
 
 #nav {

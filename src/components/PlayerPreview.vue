@@ -1,8 +1,8 @@
 <template>
-  <div>
-      <span @click="moveToPlayerPage"> Full Name: {{fullName}}</span>
-      <span>Team Name: {{teamName}}</span>
-      <span>Position Number: {{positionNumber}}</span>
+  <div id="mainDiv">
+      <p @click="moveToPlayerPage" id="fullName"> Full Name: {{fullName}}</p>
+      <p>Team Name: {{teamName}}</p>
+      <p>Position Number: {{positionNumber}}</p>
       <img :src="profile_pic" height="200" width="300" @click="moveToPlayerPage">
       </div>
 </template>
@@ -29,5 +29,22 @@ export default {
 </script>
 
 <style>
+#mainDiv{
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border-color: cadetblue;
+    border-width: 3px;
+    width: 400px;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: gray;
+}
 
+#fullName:hover{
+    cursor: pointer;
+    color: cadetblue;
+}
+p{
+    font-size: 24px;
+}
 </style>

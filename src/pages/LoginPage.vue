@@ -133,5 +133,7 @@ export default {
 .container {
   max-width: 400px;
   margin-top:1%;
+  color: white;
+  background-color: grey;
 }
 </style>

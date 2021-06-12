@@ -281,6 +281,8 @@ export default {
 .container {
   max-width: 500px;
   margin-top: 1%;
+  color:darkgreen;
+  background-color: white;
 }
 
 </style>

@@ -1,7 +1,8 @@
 <template>
-  <div>
-      <span @click="moveToTeamPage"> Team Name: {{team.team_name}}</span>
-      <img :src="team.team_logo" @click="moveToTeamPage" width="300" height="200">
+  <div id="teamPreviewDiv">
+      <p id="teamName" @click="moveToTeamPage"> Team Name: {{team.team_name}}</p>
+      <img id="logo" :src="team.team_logo" @click="moveToTeamPage" width="300" height="200">
+      
   </div>
 </template>
 
@@ -19,5 +20,20 @@ export default {
 </script>
 
 <style>
-
+    #teamName:hover{
+        cursor: pointer;
+        color: wheat;
+    }
+    #teamPreviewDiv{
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border-color: cadetblue;
+    border-width: 3px;
+    width: 310px;
+    border-style: solid;
+    border-radius: 10px;
+    }
+    #logo:hover{
+        cursor: pointer;
+    }
 </style>
