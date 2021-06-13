@@ -1,7 +1,11 @@
 <template>
-  <div>
+  <div style="color:brown">
+      <h1 style="text-align:center">Favorite Games Page</h1>
+      <div v-if="!loading">
       <FavoriteGames v-if="games" :games="games"></FavoriteGames>
-      <span v-else> {{errorMessage}}</span>
+      <span style="font-size:30px; font-weight:bold" v-else> {{errorMessage}}</span>
+      </div>
+      <span v-else style="font-size:24px; font-weight:bold"> Loading...</span>
   </div>
 </template>
 
@@ -13,7 +17,8 @@ export default {
     },data(){
         return{
             games:undefined,
-            errorMessage:"You don't have favorite games"
+            errorMessage:"You don't have favorite games",
+            loading:true
         }
     },
     mounted(){
@@ -30,6 +35,7 @@ export default {
             if(response.status==200){
                 this.games=response.data;
             }
+            this.loading=false;
         }
     }
 }

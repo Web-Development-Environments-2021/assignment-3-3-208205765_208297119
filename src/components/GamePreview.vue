@@ -52,12 +52,13 @@ export default {
 
 <style>
 .game-preview {
-  width: auto;
   position: relative;
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;
   border-color:cadetblue;
+  background-color: azure;
+  width: auto;
 }
 
 .game-preview .game-title {
@@ -67,7 +68,7 @@ export default {
 }
 
 .game-preview .game-content {
-  width: 100%;
+  width: auto;
   overflow: auto;
 }
 

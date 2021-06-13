@@ -2,7 +2,7 @@
   <div id="searchDiv">
     <h1 class="title" style="color:white">Search Page</h1>
     <span style="margin-left:1%; color:white">Sort Players By:</span>
-     <select style="margin-left:1%; color:white" v-model="sortPlayersBy" @change="sortPlayersArray" >
+     <select style="margin-left:1%; " v-model="sortPlayersBy" @change="sortPlayersArray" >
        <option value=""></option>
        <option value="playerName" >Player Name</option>
        <option value="teamName" >Team Name</option>
@@ -15,7 +15,7 @@
    <h3 style="color:white">Filters</h3>
    <b-input-group class="filterInputs" prepend="Player Position"><b-form-input  v-model="playerPositionFilter"></b-form-input></b-input-group>
    <b-input-group class="filterInputs" prepend="Team Name"><b-form-input  v-model="playerTeamFilter"></b-form-input></b-input-group>
-    <b-input-group><b-button :disabled="isDisabled"  variant="primary" @click="filterPlayers">Filter</b-button></b-input-group>
+    <b-input-group><b-button  variant="primary" @click="filterPlayers">Filter</b-button></b-input-group>
     <br/>
       <h3 style="color:white">Query</h3>
     <b-input-group prepend="Search Query:" id="search-input">

@@ -3,7 +3,7 @@
       <p @click="moveToPlayerPage" id="fullName"> Full Name: {{fullName}}</p>
       <p>Team Name: {{teamName}}</p>
       <p>Position Number: {{positionNumber}}</p>
-      <img :src="profile_pic" height="200" width="300" @click="moveToPlayerPage">
+      <img :src="profile_pic" height="200" width="300" @click="moveToPlayerPage" style="cursor:pointer">
       </div>
 </template>
 
@@ -34,7 +34,7 @@ export default {
     margin-bottom: 1%;
     border-color: cadetblue;
     border-width: 3px;
-    width: 400px;
+    width:300px;
     border-style: solid;
     border-radius: 10px;
     background-color: gray;

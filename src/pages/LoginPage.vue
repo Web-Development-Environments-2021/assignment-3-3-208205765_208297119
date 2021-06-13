@@ -105,7 +105,7 @@ export default {
           this.form.submitError=undefined;
           console.log(this.$root.store.login);
           this.$root.store.login(this.form.username,response.data);
-          this.$router.push("/").catch(()=>{});
+          this.$router.push("/").catch(()=>{this.$forceUpdate();});
         }
         // console.log(response);
         // this.$root.loggedIn = true;

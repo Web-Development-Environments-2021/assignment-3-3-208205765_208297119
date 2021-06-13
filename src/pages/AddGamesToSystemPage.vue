@@ -1,6 +1,7 @@
 <template>
-  <div>
-      <b-form @submit.prevent="validateForm" @reset.prevent="resetForm">
+  <div style="color:darkorange;">
+      <h1 style="text-align:center"> Add Game To System</h1>
+      <b-form @submit.prevent="validateForm" @reset.prevent="resetForm" style="max-width:500px">
           <b-form-group label="Home Team" label-for="homeTeamInput">
               <b-form-input id="homeTeamInput" v-model="$v.form.home_team.$model" type="text" placeholder="Home Team" :state="validateState('home_team')"></b-form-input>
               <b-form-invalid-feedback v-if="!$v.form.home_team.required">Home team must be provided</b-form-invalid-feedback>
@@ -29,11 +30,14 @@
               <b-form-invalid-feedback v-if="!$v.form.referee.required">Referee name must be provided</b-form-invalid-feedback>
               <b-form-invalid-feedback v-if="!$v.form.referee.alpha">Referee name must contain only letters</b-form-invalid-feedback>
               </b-form-group>
-              <b-button type="submit" variant="primary">Submit</b-button>
+              <b-button style="margin-right:1%" type="submit" variant="primary">Submit</b-button>
              <b-button type="reset" variant="danger">Reset</b-button>
-              </b-form>        
-            <b-alert v-if="form.success" variant="success" show="">{{form.success}}</b-alert>
-            <b-alert v-else-if="form.errorMessage" variant="danger" show="">{{form.errorMessage}}</b-alert>
+              </b-form>
+            <div id="alertsDiv">
+            <b-alert v-if="processing" variant="info" show="">Processing</b-alert>        
+            <b-alert v-if="form.success && !processing" variant="success" show="">{{form.success}}</b-alert>
+            <b-alert v-else-if="form.errorMessage && !processing" variant="danger" show="">{{form.errorMessage}}</b-alert>
+            </div>
   </div>
 </template>
 
@@ -51,7 +55,8 @@ export default {
             referee:undefined,
             errorMessage: undefined,
             success:undefined
-            }
+            },
+            processing:false
         }
     },
     validations:{
@@ -83,6 +88,9 @@ export default {
         },
         async addGame(){
             try{
+                this.processing=true;
+                this.form.success=undefined;
+                this.form.errorMessage=undefined;
                 let date_and_time=this.form.date+" "+this.form.time;
                 const response=await this.axios.post(`http://localhost:3000/leagueManagment/addGameToSystem`,{
                     home_team:this.form.home_team,
@@ -97,9 +105,14 @@ export default {
                 else if(response.status==409){
                     this.form.errorMessage="Game was already added to the system";
                 }
+                else if(response.status==400){
+                    this.form.errorMessage="Bad teams names";
+                }
+                this.processing=false;
             }
             catch(error){
                 this.form.errorMessage=error.response.data;
+                this.processing=false;
             }
         },
         validateForm(){
@@ -128,5 +141,7 @@ export default {
 </script>
 
 <style>
-
+    #alertsDiv{
+        margin-top: 1%;
+    }
 </style>

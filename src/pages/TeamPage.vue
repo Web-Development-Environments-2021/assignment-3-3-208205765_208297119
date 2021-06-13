@@ -1,17 +1,17 @@
 <template>
-  <div style="width:100%; height:100%" >
+  <div id="teamPageDiv" >
       <h1 style="text-align:Center">Team Page</h1>
       <div id="teamDiv" v-if=!loading>
-          <div class="playersDiv split">
+          <div class="playersDiv splitScreen">
        <h2>Players</h2>   
       <PlayerPreview v-for="player in team.players" :key="player.player_id" :player="player"></PlayerPreview>
           </div>
-      <div  class="futureGamesDiv split">
+      <div  class="futureGamesDiv splitScreen">
           <h2>Future Games</h2>  
           <GamePreview v-for="game in team.games.future_games_arr" :key="game.id" :game="game"></GamePreview>
           <p v-if="team.games.future_games_arr.length==0">There are no future games</p>
       </div>
-      <div class="pastGamesDiv split">
+      <div class="pastGamesDiv splitScreen">
           <h2>Past Games</h2>
           <GamePreview v-for="game in team.games.past_games_arr" :key="game.id" :game="game"></GamePreview>
           <p v-if="team.games.past_games_arr.length==0">There are no past games</p>
@@ -59,32 +59,30 @@ export default {
 </script>
 
 <style>
-.split{
-    height: 100%;
+.splitScreen{
+    width: 100%;
     overflow: auto;
     z-index: 1;
-    margin-right:1%; 
+   
 }
 
-.playersDiv{
-    width: 20%;
-    float: left;
-}
 
-.futureGamesDiv{
-    width: 25%;
-    float: left;
-}
-
-.pastGamesDiv{
-    width: 46%;
-    float:right;
-    position: relative;
-}
 
 #loadingMessage{
     font-size: 24px;
     margin-left: 1%;
+}
+
+#teamDiv{
+    display: flex;
+    justify-content: space-between;
+}
+#teamPageDiv{
+    width: 100%;
+    height: 100%;
+    color: darkgrey;
+    
+ 
 }
 
 </style>

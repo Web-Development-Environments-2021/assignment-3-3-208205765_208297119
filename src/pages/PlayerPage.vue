@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2 style="margin-left:1%; color:white">Player Page</h2>
-      <div id="playerPageDiv"> 
+      <div id="playerPageDiv" v-if="!loading"> 
       <p > Full Name: {{player.full_name}}</p>
       <p>Team Name: {{player.team_name}}</p>
       <p>Position Number: {{player.position_number}}</p>
@@ -13,6 +13,7 @@
       <p v-if="player.weight">Weight: {{player.weight}}</p>
       <img :src="player.pic" height="200" width="300" >
       </div>
+      <span v-else style="font-size:26px; color:white">Loading...</span>
   </div>
 </template>
 
@@ -21,7 +22,8 @@ export default {
     
     data(){
         return{
-            player:undefined
+            player:undefined,
+            loading:true
         }
     },
     mounted(){
@@ -36,6 +38,7 @@ export default {
         async getPlayer(){
             const response=await this.axios.get(`http://localhost:3000/personalPages/playerPage/${this.$route.params.player_id}`);
             this.player=response.data;
+            this.loading=false;
         }
     }
 }

@@ -29,7 +29,7 @@ export default {
     margin-bottom: 1%;
     border-color: cadetblue;
     border-width: 3px;
-    width: 310px;
+    width: 300px;
     border-style: solid;
     border-radius: 10px;
     }

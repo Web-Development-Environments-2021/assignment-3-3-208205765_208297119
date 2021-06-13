@@ -9,17 +9,18 @@
               <FutureGame v-for="g in futureGames" :key="g.id" :game="g"></FutureGame>
           </div>
           <div v-else>
-            <FutureGameToAddToFavorites v-for="g in futureGames" :key="g.id" :game="g"></FutureGameToAddToFavorites>
+            <FutureGameToAddToFavorites v-for="g in futureGames" :key="g.id" :game="g" @gameAdded="switchGame"></FutureGameToAddToFavorites>
+            <FutureGame v-for="g in favoriteGames" :key="g.id" :game="g"></FutureGame>
           </div>
       </div>
-     <span v-else>No Future Games</span>
+     <span class="errorSpan" v-else>No Future Games</span>
       </div>
       <div class="split right">
       <div id="pastGames" v-if="pastGames">
         <h3>Past Games</h3>
         <FutureGame v-for="g in pastGames" :key="g.id" :game="g"></FutureGame>
       </div>
-      <span v-else>No Past Games</span>
+      <span class="errorSpan" v-else>No Past Games</span>
     </div>
   </div>
   <span v-else id="loading">Loading...</span>
@@ -35,8 +36,9 @@ export default {
   },
   data(){
     return{
-      pastGames:undefined,
-      futureGames:undefined,
+      pastGames:[],
+      futureGames:[],
+      favoriteGames:[],
       errorMessage:"No games in database",
       loading:true
     }
@@ -53,14 +55,39 @@ export default {
     async getGames(){
       const response=await this.axios.get("http://localhost:3000/currentStageGames");
       if(response.status==200){
-        if(response.data.past_games_arr!=[]){
+        if(response.data.past_games_arr.length>0){
           this.pastGames=response.data.past_games_arr;
         }
-        if(response.data.future_games_Arr!=[]){
-          this.futureGames=response.data.future_games_arr;
+        if(response.data.future_games_arr.length>0 ){
+          if(!this.$root.store.username){
+            this.futureGames=response.data.future_games_arr;
+          }
+         else{
+           const favoriteGamesResponse=await this.axios.get(`http://localhost:3000/users/getFavoriteGames`);
+           if(favoriteGamesResponse.status==204){//if no favorite games
+             this.futureGames=response.data.future_games_arr;
+           }
+           else{
+             for(let i=0;i<response.data.future_games_arr.length;i++){
+               let favoriteGame=favoriteGamesResponse.data.find(game=>game.id===response.data.future_games_arr[i].id)
+               if(favoriteGame){
+                 this.favoriteGames.push(response.data.future_games_arr[i]);
+               }
+               else{
+                 this.futureGames.push(response.data.future_games_arr[i]);
+               }
+             }
+           }
+         }   
+
         }
       }
      this.loading=false;
+    },
+    switchGame(game){
+      const index=this.futureGames.indexOf(game);
+      this.futureGames.splice(index,1);
+      this.favoriteGames.push(game);
     }
   }
 }
@@ -93,6 +120,10 @@ export default {
 #loading{
   margin-left: 1%;
   text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+.errorSpan{
   font-size: 24px;
   font-weight: bold;
 }
