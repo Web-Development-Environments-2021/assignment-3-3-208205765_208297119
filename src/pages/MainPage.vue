@@ -7,11 +7,14 @@
     </div>
     <div class="rightScreen screen" v-if="!loadingFavoriteGames && loadingNextGame">
     <LoginPage  v-if="!$root.store.username"></LoginPage>
-    <div v-else-if="favoriteGames">
+    <div v-else>
+    <div v-if="favoriteGames">
       <h2> Favorite Games</h2>
     <FavoriteGames :games="favoriteGames"></FavoriteGames>
     </div>
+    <span v-else-if="loadingFavoriteGames" style="font-size:30px;font-weight:bold">Loading Favorite Games</span>
     <span style="font-size:34px; font-weight:bold"  v-else> {{errorMessageForLoggedInUser}}</span>
+    </div>
     </div>
     
     <label style="font-size:24px" v-if="!loadingNextGame || loadingFavoriteGames">Loading...</label>
@@ -39,13 +42,16 @@ export default {
   created(){
     this.getFavoriteGames()
   },
-  mounted(){
-    this.getFavoriteGames()
+  updated(){
+    if(this.$root.store.username && !this.favoriteGames){
+      this.getFavoriteGames()
+    }
   },
   methods:{
     async getFavoriteGames(){
       try{
         if(this.$root.store.username){
+          this.loadingFavoriteGames=true;
       this.axios.withCredentials=true;
       const response=await this.axios.get("http://localhost:3000/mainPage/rightColumn",{withCredentials:true});
       if(response.status==204){

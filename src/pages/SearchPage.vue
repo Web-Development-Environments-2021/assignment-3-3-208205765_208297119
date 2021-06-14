@@ -80,16 +80,13 @@ export default {
     };
   },
   computed:{
-    isDisabled(){
-      return this.playerPositionFilter=="" && this.playerTeamFilter=="";
-    },
-    disabledSearchButton(){
+    disabledSearchButton(){//computed attribute for deciding if search button need to be disabled
       return this.searchQuery=="";
     }
     },
   mounted(){
     try{
-      if(this.$root.store.username){
+      if(this.$root.store.username){//if user is logged in
         this.getLastResults();
       }
     }
@@ -98,6 +95,9 @@ export default {
     }
   },
   methods:{
+    /**
+     * This method retreives search result from server
+     */
     async search(){
       if(this.searchQuery!=""){
         this.searching=true;
@@ -112,32 +112,32 @@ export default {
         this.searching=false;
       }
     },
-    async getLastResults(){
+    async getLastResults(){//retrieve last search results from server for logged in user
       const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
-      if(response.status==200){
+      if(response.status==200){//if there are results
         this.playersArray=response.data.playersArray;
       this.coachesArray=response.data.coachesArray;
       this.teamsArray=response.data.teamsArray;
       }
     },
-    filterPlayers(){
-      if(this.playersArray.length>0){
+    filterPlayers(){//this function filter search results with user's filter
+      if(this.playersArray.length>0){//if there are players in search result
         let filteredPlayers=[];
-        if(this.playerPositionFilter && this.playerTeamFilter){
+        if(this.playerPositionFilter && this.playerTeamFilter){//if user want to filter by team name and position
           for(let i=0;i<this.playersArray.length;i++){
             if(this.playersArray[i].team_name==this.playerTeamFilter && this.playersArray[i].position_number.toString()==this.playerPositionFilter){
               filteredPlayers.push(this.playersArray[i]);
             }
           }
         }
-        else if(this.playerPositionFilter){
+        else if(this.playerPositionFilter){//if user want to filter only by position
           for(let i=0;i<this.playersArray.length;i++){
             if(this.playersArray[i].position_number.toString()==this.playerPositionFilter){
               filteredPlayers.push(this.playersArray[i]);
             }
           }
         }
-        else if(this.playerTeamFilter){
+        else if(this.playerTeamFilter){//if user want to filter only by team name
           for(let i=0;i<this.playersArray.length;i++){
             if(this.playersArray[i].team_name==this.playerTeamFilter){
               filteredPlayers.push(this.playersArray[i]);
@@ -203,7 +203,7 @@ export default {
       }
       this.mergeSortedAndFilteredPLayers();
     },
-    mergeSortedAndFilteredPLayers(){
+    mergeSortedAndFilteredPLayers(){//this function merge filtered and sorted players array
       if(this.filteredPlayersArray.length==0 && this.sortedPlayersArray.length==0){
           this.sortedAndFilteredArray=[];
       }
