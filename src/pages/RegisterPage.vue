@@ -116,6 +116,7 @@
       <b-form-group id="input-group-profile_pic" label-cols-sm="3" label="Image Url" label-for="profile_pic">
         <b-form-input id="profile_pic" type="url" v-model="$v.form.profile_pic.$model" :state="validateState('profile_pic')"></b-form-input>
         <b-form-invalid-feedback v-if="!$v.form.profile_pic.required">Profile picture must be provided</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.profile_pic.url">Profile picture must be url</b-form-invalid-feedback>
       </b-form-group>
 
 
@@ -156,7 +157,8 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
+  url
 } from "vuelidate/lib/validators";
 
 
@@ -211,7 +213,8 @@ export default {
         email
       },
       profile_pic:{
-        required
+        required,
+        url
       }
     }
   },
