@@ -6,18 +6,18 @@
       <LeagueInfo @finishLoading="changeLoading" :show="loadingNextGame"></LeagueInfo>
     </div>
     <div class="rightScreen screen" v-if="!loadingFavoriteGames && loadingNextGame">
-    <LoginPage  v-if="!$root.store.username"></LoginPage>
+    <LoginPage  v-if="!$root.store.username" @successful=getFavoriteGames></LoginPage>
     <div v-else>
     <div v-if="favoriteGames">
       <h2> Favorite Games</h2>
     <FavoriteGames :games="favoriteGames"></FavoriteGames>
     </div>
-    <span v-else-if="loadingFavoriteGames" style="font-size:30px;font-weight:bold">Loading Favorite Games</span>
+    <label style="font-size:30px; font-weight:bold" v-else-if="loadingFavoriteGames" >Loading Favorite Games</label>
     <span style="font-size:34px; font-weight:bold"  v-else> {{errorMessageForLoggedInUser}}</span>
     </div>
     </div>
     
-    <label style="font-size:24px" v-if="!loadingNextGame || loadingFavoriteGames">Loading...</label>
+    <label style="font-size:24px; margin-left:1%" v-if="!loadingNextGame || loadingFavoriteGames">Loading...</label>
   </div>
 </template>
 
@@ -42,11 +42,7 @@ export default {
   created(){
     this.getFavoriteGames()
   },
-  updated(){
-    if(this.$root.store.username && !this.favoriteGames){
-      this.getFavoriteGames()
-    }
-  },
+  
   methods:{
     async getFavoriteGames(){
       try{
