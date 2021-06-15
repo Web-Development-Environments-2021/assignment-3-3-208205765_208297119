@@ -101,12 +101,12 @@ export default {
           }
         );
         
-        if(response.status==200){
+        if(response.status==200){//if login was successful
           this.form.submitError=undefined;
           console.log(this.$root.store.login);
           this.$root.store.login(this.form.username,response.data);
           this.$emit("successful");
-          this.$router.push("/");
+          this.$router.push("/");//move to main page
         }
         // console.log(response);
         // this.$root.loggedIn = true;

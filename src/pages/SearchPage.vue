@@ -186,6 +186,9 @@ export default {
         this.sortedTeamsArray=[];
       }
     },
+    /**
+     * This function sort players by user's chosen criteria
+     */
     sortPlayersArray(){
       if(this.sortPlayersBy==""){
         this.sortedPlayersArray=[];
@@ -215,7 +218,7 @@ export default {
       }
       else{
         let mergedFilteredAndSortedArray=[];
-        for( let i=0;i<this.sortedPlayersArray;i++){
+        for( let i=0;i<this.sortedPlayersArray;i++){//find intersection between filtered players array and sorted players array
           if(this.filteredPlayersArray.includes(this.sortedPlayersArray[i])){
             mergedFilteredAndSortedArray.push(this.sortedPlayersArray[i]);
           }

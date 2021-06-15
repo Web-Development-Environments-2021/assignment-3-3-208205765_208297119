@@ -86,6 +86,9 @@ export default {
         const { $dirty, $error } = this.$v.form[param];
         return $dirty ? !$error : null;
         },
+        /**
+         * This function adds a game to the system
+         */
         async addGame(){
             try{
                 this.processing=true;
@@ -99,7 +102,7 @@ export default {
                     stadium:this.form.stadium,
                     referee:this.form.referee
                 });
-                if(response.status==201){
+                if(response.status==201){//if game was added successfully
                       this.form.success="Game was successfully added!";  
                 }
                 else if(response.status==409){

@@ -44,11 +44,11 @@ export default {
     },
     methods:{
         async getTeam(){
-            if(this.$route.params.team_name){
+            if(this.$route.params.team_name){//get team by name
                 const team=await this.axios.get(`http://localhost:3000/personalPages/teamPageByName/${this.$route.params.team_name}`);
                 this.team=team.data;
             }
-            else if(this.$route.params.team_id){
+            else if(this.$route.params.team_id){//get team by id
                 const team=await this.axios.get(`http://localhost:3000/personalPages/teamPage/${this.$route.params.team_id}`);
                 this.team=team.data;
             }

@@ -52,14 +52,17 @@ export default {
     }
   },
   methods:{
+    /**
+     * This function gets all games in database
+     */
     async getGames(){
       const response=await this.axios.get("http://localhost:3000/currentStageGames");
-      if(response.status==200){
+      if(response.status==200){//if there are games in database
         if(response.data.past_games_arr.length>0){
           this.pastGames=response.data.past_games_arr;
         }
         if(response.data.future_games_arr.length>0 ){
-          if(!this.$root.store.username){
+          if(!this.$root.store.username){//if there are no logged in user
             this.futureGames=response.data.future_games_arr;
           }
          else{
@@ -67,6 +70,8 @@ export default {
            if(favoriteGamesResponse.status==204){//if no favorite games
              this.futureGames=response.data.future_games_arr;
            }
+           //divide current stage games into 2 categories: one is games that can be added to user's favorites
+           // and another is games that are already in user's favorites
            else{
              for(let i=0;i<response.data.future_games_arr.length;i++){
                let favoriteGame=favoriteGamesResponse.data.find(game=>game.id===response.data.future_games_arr[i].id)
@@ -84,6 +89,9 @@ export default {
       }
      this.loading=false;
     },
+    /**
+     * This function switch added game from future games to user's added favorite games
+     */
     switchGame(game){
       const index=this.futureGames.indexOf(game);
       this.futureGames.splice(index,1);

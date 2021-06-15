@@ -46,14 +46,14 @@ export default {
   methods:{
     async getFavoriteGames(){
       try{
-        if(this.$root.store.username){
+        if(this.$root.store.username){//if user is logged in
           this.loadingFavoriteGames=true;
       this.axios.withCredentials=true;
       const response=await this.axios.get("http://localhost:3000/mainPage/rightColumn",{withCredentials:true});
-      if(response.status==204){
+      if(response.status==204){//if no favorite games
         this.favoriteGames=undefined;
       }
-      else if(response.status==200){
+      else if(response.status==200){// if there are favorite games
         this.favoriteGames=response.data;
       }
         }
@@ -64,6 +64,9 @@ export default {
       console.log(error);
     }
     },
+    /**
+      This function change the status of loading league information
+     */
     changeLoading(){
       while(this.loadingFavoriteGames){}
       this.loadingNextGame=true;
