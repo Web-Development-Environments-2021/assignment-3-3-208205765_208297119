@@ -100,6 +100,9 @@ export default {
      */
     async search(){
       if(this.searchQuery!=""){
+        if(this.$root.store.username){//if user is logged in, save last query search
+          this.$root.store.saveLastSearch(this.searchQuery);
+        }
         this.searching=true;
         this.pressedSearchButton=true;
         const response=await this.axios.get(`http://localhost:3000/search/${this.searchQuery}`);
@@ -113,6 +116,7 @@ export default {
       }
     },
     async getLastResults(){//retrieve last search results from server for logged in user
+      this.searchQuery=this.$root.store.lastSearch;
       const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
       if(response.status==200){//if there are results
         this.playersArray=response.data.playersArray;

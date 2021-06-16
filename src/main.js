@@ -49,6 +49,7 @@ const shared_data = {
   // username: localStorage.username,
   username: undefined,
   isAdmin:undefined,
+  lastSearch:undefined,
   login(username,isAdmin) {
     localStorage.setItem("username", username);
     localStorage.setItem("isAdmin",isAdmin);
@@ -60,8 +61,14 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("lastSearch");
     this.username = undefined;
     this.isAdmin=undefined;
+    this.lastSearch=undefined;
+  },
+  saveLastSearch(querySearch){
+    localStorage.setItem("lastSearch",querySearch);
+    this.lastSearch=querySearch;
   }
 };
 console.log(shared_data);
