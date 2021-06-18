@@ -6,7 +6,7 @@
           <p>Links to our previous works:</p>
           <ul>
               <li>
-                  <a href="/https://web-development-environments-2021.github.io/Assignment2_208205765_208297119">Pacman Game</a>
+                  <a href="https://web-development-environments-2021.github.io/Assignment2_208205765_208297119">Pacman Game</a>
               </li>
               <li>
                   <a href="https://web-development-environments-2021.github.io/208205765/.">Website About Anatoly Karpov</a>

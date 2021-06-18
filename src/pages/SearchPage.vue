@@ -106,12 +106,14 @@ export default {
         this.searching=true;
         this.pressedSearchButton=true;
         const response=await this.axios.get(`http://localhost:3000/search/${this.searchQuery}`);
-        this.playersArray=response.data.playersArray;
-        this.teamsArray=response.data.teamsArray;
-        this.coachesArray=response.data.coachesArray;
-        this.sortTeams();
-        this.sortPlayersArray();
-        this.filterPlayers();
+        if(response.status==200 || response.status==206){//if results were found
+          this.playersArray=response.data.playersArray;
+          this.teamsArray=response.data.teamsArray;
+          this.coachesArray=response.data.coachesArray;
+          this.sortTeams();
+          this.sortPlayersArray();
+          this.filterPlayers();
+        }
         this.searching=false;
       }
     },

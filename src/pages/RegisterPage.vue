@@ -71,6 +71,8 @@
         >
           Have length between 5-10 characters long
         </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.password.containsOneDigitAndOneChar">
+           You should enter at least one digit and one special character</b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -194,7 +196,15 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        containsOneDigitAndOneChar: (p)=>{
+          let specialChars=/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+          let digits=new RegExp("[0-9]");
+          if(!specialChars.test(p) || !digits.test(p)){
+            return false;
+          }
+          return true;
+        }
       },
       confirmedPassword: {
         required,
