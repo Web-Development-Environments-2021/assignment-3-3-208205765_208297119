@@ -118,6 +118,7 @@ export default {
       }
     },
     async getLastResults(){//retrieve last search results from server for logged in user
+      this.pressedSearchButton=true;
       this.searchQuery=this.$root.store.lastSearch;
       const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
       if(response.status==200){//if there are results
