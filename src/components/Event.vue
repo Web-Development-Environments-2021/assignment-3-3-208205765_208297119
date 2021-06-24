@@ -24,7 +24,10 @@
 <script>
 export default {
     props:{
-        event: Object
+        event:{
+          type:Object,
+          required:true
+        }
     },
     data(){
         return{

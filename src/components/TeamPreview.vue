@@ -9,7 +9,10 @@
 <script>
 export default {
     props:{
-        team:Object
+        team:{
+            type:Object,
+            required:true
+        }
     },
     methods:{
         moveToTeamPage(){

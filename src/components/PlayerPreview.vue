@@ -10,7 +10,10 @@
 <script>
 export default {
     props:{
-        player:Object
+        player:{
+            type:Object,
+            required:true
+        }
     },
     data(){
         return{

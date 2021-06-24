@@ -36,7 +36,10 @@ export default {
        nextGame: GamePreview
       },
       props:{
-        show:Boolean
+        show:{
+          type:Boolean,
+          required:true
+        }
       },
  data() {
     return {

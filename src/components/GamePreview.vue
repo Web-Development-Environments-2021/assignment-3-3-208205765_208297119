@@ -20,7 +20,10 @@ import EventScheduler from "./EventSchedule.vue";
 export default {
   name: "GamePreview",
   props: {
-      game: Object
+      game:{
+        type:Object,
+        required:true
+      }
   },
   components:{
     EventScheduler

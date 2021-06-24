@@ -13,7 +13,10 @@ export default {
     GamePreview
   }, 
   props:{
-    games: Array
+    games:{
+      type:Array,
+      required:true
+    }
   }
   
   // methods: {

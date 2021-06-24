@@ -11,7 +11,10 @@ export default {
         Event
     },
     props:{
-        eventsArr:Array
+        eventsArr:{
+            type:Array,
+            required:true
+        }
     },
     data(){
         return{
