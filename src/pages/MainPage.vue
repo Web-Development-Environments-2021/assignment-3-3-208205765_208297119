@@ -67,7 +67,7 @@ export default {
     /**
       This function change the status of loading league information
      */
-    changeLoading(){
+    async changeLoading(){
       while(this.loadingFavoriteGames){}
       this.loadingNextGame=true;
       }
