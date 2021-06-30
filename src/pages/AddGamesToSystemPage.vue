@@ -11,6 +11,7 @@
                   <b-form-input id="awayTeamInput" v-model="$v.form.away_team.$model" type="text" placeholder="Away Team" :state="validateState('away_team')"></b-form-input>
                   <b-form-invalid-feedback v-if="!$v.form.away_team.required">Away team must be provided</b-form-invalid-feedback>
                   <b-form-invalid-feedback v-if="!$v.form.away_team.alpha">Away team name must contain only letters</b-form-invalid-feedback>
+                  <b-form-invalid-feedback v-if="!$v.form.away_team.sameAsHomeTeam"> Away Team must be differrent from home team</b-form-invalid-feedback>
                   </b-form-group>
           <b-form-group label="Date Of The Match" label-for="dateInput">
               <b-form-datepicker id="dateInput" locale="en-US" v-model="$v.form.date.$model" :State="validateState('date')" class="mb-2"></b-form-datepicker>
@@ -47,14 +48,14 @@ export default {
     data(){
         return{
             form:{
-            home_team:undefined,
-            away_team:undefined,
-            date:undefined,
-            time:undefined,
-            stadium:undefined,
-            referee:undefined,
-            errorMessage: undefined,
-            success:undefined
+            home_team:"",
+            away_team:"",
+            date:"",
+            time:"",
+            stadium:"",
+            referee:"",
+            errorMessage: "",
+            success:""
             },
             processing:false
         }
@@ -65,7 +66,13 @@ export default {
                 required,alpha
             },
             away_team:{
-                required,alpha
+                required,alpha,
+                sameAsHomeTeam: (b,vm)=>{
+                   if(b!="" && vm.home_team!=""){
+                        return (b.toLowerCase()!=vm.home_team.toLowerCase())
+                   }
+                   return true
+                }
             },
             date:{
                 required
@@ -127,13 +134,13 @@ export default {
         },
         resetForm(){
             this.form={
-                home_team:undefined,
-                away_team:undefined,
-                date:undefined,
-                time:undefined,
-                stadium:undefined,
-                referee:undefined,
-                alertMessage:undefined
+                home_team:"",
+                away_team:"",
+                date:"",
+                time:"",
+                stadium:"",
+                referee:"",
+                alertMessage:""
             };
             this.$nextTick(() => {
                 this.$v.$reset();

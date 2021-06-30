@@ -118,14 +118,19 @@ export default {
       }
     },
     async getLastResults(){//retrieve last search results from server for logged in user
-      this.pressedSearchButton=true;
-      this.searchQuery=this.$root.store.lastSearch;
-      const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
-      if(response.status==200){//if there are results
-        this.playersArray=response.data.playersArray;
-      this.coachesArray=response.data.coachesArray;
-      this.teamsArray=response.data.teamsArray;
+      if(this.$root.store.lastSearch){//if logged in user made a search
+      this.searching=true
+        this.searchQuery=this.$root.store.lastSearch;
+        this.pressedSearchButton=true;
+        const response=await this.axios.get(`http://localhost:3000/search/lastResults`);
+        if(response.status==200){//if there are results
+          this.playersArray=response.data.playersArray;
+        this.coachesArray=response.data.coachesArray;
+        this.teamsArray=response.data.teamsArray;
+        this.searching=false
       }
+      }
+      
     },
     filterPlayers(){//this function filter search results with user's filter
       if(this.playersArray.length>0){//if there are players in search result
@@ -146,7 +151,7 @@ export default {
         }
         else if(this.playerTeamFilter){//if user want to filter only by team name
           for(let i=0;i<this.playersArray.length;i++){
-            if(this.playersArray[i].team_name==this.playerTeamFilter){
+            if(this.playersArray[i].team_name.toLowerCase()==this.playerTeamFilter.toLowerCase()){
               filteredPlayers.push(this.playersArray[i]);
             }
           }
@@ -155,38 +160,11 @@ export default {
         this.mergeSortedAndFilteredPLayers();
       }
     },
-    compareTeams(a,b){
-      if(a.team_name<b.team_name){
-        return -1;
-      }
-      if(a.team_name>b.team_name){
-        return 1;
-      }
-      return 0;
-    },
-    compareByPlayerName(a,b){
-        if(a.full_name<b.full_name){
-          return -1;
-        }
-        if(a.full_name>b.full_name){
-          return 1;
-        }
-        return 0;
-      },
-       compareByTeamName(a,b){
-      if(a.team_name<b.team_name){
-        return -1;
-      }
-      if(a.team_name>b.team_name){
-        return 1;
-      }
-      return 0;
-    },
     sortTeams(){
       if(this.sortTeamsBy){
         if(this.teamsArray.length!=0){
           this.sortedTeamsArray=[...this.teamsArray];
-          this.sortedTeamsArray.sort(this.compareTeams);
+          this.sortedTeamsArray.sort((a,b)=> a.team_name.localeCompare(b.team_name));
       }
       }
       else{
@@ -205,10 +183,10 @@ export default {
       if(this.playersArray.length!=0){
         this.sortedPlayersArray=[...this.playersArray];
         if(this.sortPlayersBy=="playerName"){
-        this.sortedPlayersArray.sort(this.compareByPlayerName);
+        this.sortedPlayersArray.sort((a,b)=>a.full_name.localeCompare(b.full_name));
       }
       else{
-        this.sortedPlayersArray.sort(this.compareByTeamName);
+        this.sortedPlayersArray.sort((a,b)=>a.team_name.localeCompare(b.team_name));
       }
       }
       this.mergeSortedAndFilteredPLayers();

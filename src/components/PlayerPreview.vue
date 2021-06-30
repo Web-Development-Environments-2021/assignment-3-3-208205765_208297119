@@ -3,7 +3,7 @@
       <p @click="moveToPlayerPage" id="fullName"> Full Name: {{fullName}}</p>
       <p>Team Name: {{teamName}}</p>
       <p>Position Number: {{positionNumber}}</p>
-      <img :src="profile_pic" height="200" width="300" @click="moveToPlayerPage" style="cursor:pointer">
+      <img :src="profile_pic" height="200" width="250" @click="moveToPlayerPage" style="cursor:pointer">
       </div>
 </template>
 
