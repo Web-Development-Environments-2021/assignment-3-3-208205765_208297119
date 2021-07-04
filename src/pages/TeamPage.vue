@@ -1,7 +1,9 @@
 <template>
   <div id="teamPageDiv" >
       <h1 style="text-align:Center">Team Page</h1>
-      <div id="teamDiv" v-if=!loading>
+      <div v-if="!loading && team">
+          <img width="100" height="150" :src="team.team_logo">
+          <div id="teamDiv">
           <div class="playersDiv splitScreen">
        <h2>Players</h2>   
       <PlayerPreview v-for="player in team.players" :key="player.player_id" :player="player"></PlayerPreview>
@@ -17,7 +19,10 @@
           <p v-if="team.games.past_games_arr.length==0">There are no past games</p>
       </div>
       </div>
+      </div>
+      <label v-else-if="!loading" id="noTeamLabel">There is no such team!</label>
       <span id="loadingMessage" v-else>Loading...</span>
+      
   </div>
 </template>
 
@@ -44,13 +49,15 @@ export default {
     },
     methods:{
         async getTeam(){
+            let team
             if(this.$route.params.team_name){//get team by name
-                const team=await this.axios.get(`http://localhost:3000/personalPages/teamPageByName/${this.$route.params.team_name}`);
-                this.team=team.data;
-            }
+                team=await this.axios.get(`http://localhost:3000/personalPages/teamPageByName/${this.$route.params.team_name}`);
+                }
             else if(this.$route.params.team_id){//get team by id
-                const team=await this.axios.get(`http://localhost:3000/personalPages/teamPage/${this.$route.params.team_id}`);
-                this.team=team.data;
+                team=await this.axios.get(`http://localhost:3000/personalPages/teamPage/${this.$route.params.team_id}`);
+            }
+            if(team.status==200){
+                this.team=team.data
             }
             this.loading=false;
         }
@@ -81,8 +88,13 @@ export default {
     width: 100%;
     height: 100%;
     color: darkgrey;
-    
- 
+}
+#noTeamLabel{
+    margin-top:1% ;
+    margin-left:1%;
+    color: darkorange;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 </style>

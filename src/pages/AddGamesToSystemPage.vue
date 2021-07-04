@@ -1,5 +1,7 @@
 <template>
-  <div style="color:darkorange;">
+<div>
+<div v-if="!loading">
+  <div class="left split">
       <h1 style="text-align:center"> Add Game To System</h1>
       <b-form @submit.prevent="validateForm" @reset.prevent="resetForm" style="max-width:500px">
           <b-form-group label="Home Team" label-for="homeTeamInput">
@@ -35,11 +37,26 @@
              <b-button type="reset" variant="danger">Reset</b-button>
               </b-form>
             <div id="alertsDiv">
-            <b-alert v-if="processing" variant="info" show="">Processing</b-alert>        
+            <div v-if="processing" class="processingDiv">    
+            <b-alert variant="info" show="">Processing</b-alert>
+            <b-spinner label="Processing"></b-spinner>   
+            </div>     
             <b-alert v-if="form.success && !processing" variant="success" show="">{{form.success}}</b-alert>
             <b-alert v-else-if="form.errorMessage && !processing" variant="danger" show="">{{form.errorMessage}}</b-alert>
             </div>
   </div>
+  <div class="right split">
+      <p id="teamsHeader">Teams In League</p>
+      <ol>
+          <li v-for="(team,index) in teams_names" :key="index" @click="moveToTeamPage(team.id)" class="teams">{{team.name}}</li>
+      </ol>
+  </div>
+</div>
+<div v-else class="processingDiv loadingDiv">
+    <label>Loading...</label>
+    <b-spinner label="loading"></b-spinner>
+</div>
+</div>
 </template>
 
 <script>
@@ -57,7 +74,9 @@ export default {
             errorMessage: "",
             success:""
             },
-            processing:false
+            processing:false,
+            teams_names:[],
+            loading:true
         }
     },
     validations:{
@@ -86,6 +105,14 @@ export default {
             referee:{
                 required,alpha
             }
+        }
+    },
+    mounted(){
+        try{
+            this.getTeamsNames()
+        }
+        catch(error){
+            console.log(error)
         }
     },
     methods:{
@@ -125,6 +152,12 @@ export default {
                 this.processing=false;
             }
         },
+        async getTeamsNames(){
+            this.loading=true
+            const names=await this.axios.get(`http://localhost:3000/leagueManagment/getAllTeamsInLeague`)
+            this.teams_names=names.data
+            this.loading=false
+        },
         validateForm(){
              this.$v.form.$touch();
             if (this.$v.form.$anyError) {
@@ -145,6 +178,9 @@ export default {
             this.$nextTick(() => {
                 this.$v.$reset();
         });
+        },
+        moveToTeamPage(id){
+            this.$router.push({name:"teamPageById",params:{team_id:id}});
         }
     }
 }
@@ -153,5 +189,43 @@ export default {
 <style>
     #alertsDiv{
         margin-top: 1%;
+    }
+    .left{
+        color: darkorange;
+        left: 0;
+    }
+    .right{
+        right: 0;
+    }
+    .split{
+        width: 50%;
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+    }
+    .processingDiv{
+        display: flex;
+        flex-direction: row;
+    }
+    .teams{
+        margin-top:1% ;
+        font-weight: bold;
+        font-size: 24px;
+        color: darkgoldenrod;
+    }
+    .teams:hover{
+        color: darkred;
+        cursor: pointer;
+    }
+    #teamsHeader{
+        margin-top:1%;
+        font-size: 35px;
+        color: darkmagenta;
+    }
+    .loadingDiv{
+        margin-left:1% ;
+        margin-top: 1%;
+        font-size: 24px;
+        color: darkorange;
     }
 </style>
