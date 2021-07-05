@@ -80,6 +80,8 @@ export default {
   color: aqua;
 }
 
-
+.team{
+  width: fit-content;
+}
 
 </style>

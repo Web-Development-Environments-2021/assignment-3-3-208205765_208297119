@@ -39,4 +39,7 @@ export default {
     #logo:hover{
         cursor: pointer;
     }
+    #teamName{
+        width: fit-content;
+    }
 </style>

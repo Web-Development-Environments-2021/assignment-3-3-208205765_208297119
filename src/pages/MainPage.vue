@@ -3,7 +3,7 @@
     <h1 style="text-align:center" >Main Page</h1>
     
     <div class="leftScreen screen">
-      <LeagueInfo @finishLoading="changeLoading" :show="loadingNextGame"></LeagueInfo>
+      <LeagueInfo @finishLoading="changeLoading" :show="loadingNextGame && !firstLoading"></LeagueInfo>
     </div>
     <div class="rightScreen screen" v-if="!loadingFavoriteGames && loadingNextGame">
     <LoginPage  v-if="!$root.store.username" @successful=getFavoriteGames></LoginPage>
@@ -36,11 +36,12 @@ export default {
       errorMessageForLoggedInUser:"No Favorite Games",
       favoriteGames:undefined,
       loadingNextGame:false,
-      loadingFavoriteGames:true
+      loadingFavoriteGames:true,
+      firstLoading:true
     }
   },
   created(){
-    this.getFavoriteGames()
+    this.getFavoriteGames().then(this.firstLoading=false)
   },
   
   methods:{
@@ -67,8 +68,7 @@ export default {
     /**
       This function change the status of loading league information
      */
-    async changeLoading(){
-      while(this.loadingFavoriteGames){}
+    changeLoading(){
       this.loadingNextGame=true;
       }
   }

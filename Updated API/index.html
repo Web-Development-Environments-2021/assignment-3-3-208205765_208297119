@@ -218,6 +218,7 @@
   <li><a href="#leagueManagmentAddGameToSystemPost"><code><span class="http-method">post</span> /leagueManagment/addGameToSystem</code></a></li>
   <li><a href="#leagueManagmentAddResultToGameGameIdResultPost"><code><span class="http-method">post</span> /leagueManagment/addResultToGame/{game_id}/{result}</code></a></li>
   <li><a href="#leagueManagmentGetAllGamesGet"><code><span class="http-method">get</span> /leagueManagment/getAllGames</code></a></li>
+  <li><a href="#leagueManagmentGetAllTeamsInLeagueGet"><code><span class="http-method">get</span> /leagueManagment/getAllTeamsInLeague</code></a></li>
   </ul>
   <h4><a href="#MainPage">MainPage</a></h4>
   <ul>
@@ -668,12 +669,14 @@
   "full_name" : "Lionel Messi",
   "position_number" : 9,
   "team_Name" : "Barcelona",
+  "team_id" : 1,
   "pic" : "https://cloudinary.com/abc"
 }, {
   "player_id" : 1,
   "full_name" : "Lionel Messi",
   "position_number" : 9,
   "team_Name" : "Barcelona",
+  "team_id" : 1,
   "pic" : "https://cloudinary.com/abc"
 } ]</code></pre>
 
@@ -1064,6 +1067,50 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="leagueManagmentGetAllTeamsInLeagueGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /leagueManagment/getAllTeamsInLeague</code></pre></div>
+    <div class="method-summary">get the names of all teams that in the league (<span class="nickname">leagueManagmentGetAllTeamsInLeagueGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#inline_response_200">inline_response_200</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "name" : "Barcelona",
+  "id" : 1
+}, {
+  "name" : "Barcelona",
+  "id" : 1
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    the names of all the teams in the league
+        
+  </div> <!-- method -->
+  <hr/>
   <h1><a name="MainPage">MainPage</a></h1>
   <div class="method"><a name="mainPageLeftColumnGet"></a>
     <div class="method-path">
@@ -1324,12 +1371,14 @@
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   }, {
     "player_id" : 1,
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   } ],
   "games" : {
@@ -1481,12 +1530,14 @@
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   }, {
     "player_id" : 1,
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   } ],
   "games" : {
@@ -1631,12 +1682,14 @@
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   }, {
     "player_id" : 1,
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   } ],
   "teamsArray" : [ {
@@ -1714,12 +1767,14 @@
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   }, {
     "player_id" : 1,
     "full_name" : "Lionel Messi",
     "position_number" : 9,
     "team_Name" : "Barcelona",
+    "team_id" : 1,
     "pic" : "https://cloudinary.com/abc"
   } ],
   "teamsArray" : [ {
@@ -1783,6 +1838,7 @@
     <li><a href="#favoriteTeams_inner"><code>favoriteTeams_inner</code></a></li>
     <li><a href="#future_game"><code>future_game</code></a></li>
     <li><a href="#gameToAdd"><code>gameToAdd</code></a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
     <li><a href="#mainPage"><code>mainPage</code></a></li>
     <li><a href="#mainPageGames"><code>mainPageGames</code></a></li>
     <li><a href="#mainPage_leagueDetails"><code>mainPage_leagueDetails</code></a></li>
@@ -1970,6 +2026,16 @@
     </div>  <!-- field-items -->
   </div>
   <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>object that containd id and name of the team</div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> name of the team </div>
+          <div class="param-desc"><span class="param-type">example: Barcelona</span></div>
+<div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> id of the team </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
     <h3><a name="mainPage"><code>mainPage</code></a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'>league details object and array of favorite games</div>
     <div class="field-items">
@@ -2052,6 +2118,8 @@
           <div class="param-desc"><span class="param-type">example: Lionel Messi</span></div>
 <div class="param">team_Name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> name of the player team </div>
           <div class="param-desc"><span class="param-type">example: Barcelona</span></div>
+<div class="param">team_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> team id </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
 <div class="param">pic (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> url of the player&#x27;s picture </div>
           <div class="param-desc"><span class="param-type">example: https://cloudinary.com/abc</span></div>
 <div class="param">position_number (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> position number </div>

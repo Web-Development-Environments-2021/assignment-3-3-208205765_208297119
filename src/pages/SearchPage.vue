@@ -26,8 +26,12 @@
       </b-input-group-append>
     </b-input-group>
     <br/>
-    <p v-if="searching">Searching...</p>
-    <div id="results" v-else-if="!searching && (pressedSearchButton || playersArray.length>0 || teamsArray.length>0)">
+    <div v-if="searching" id="searchingDiv">
+        <p>Searching...</p>
+        <b-spinner variant="success" label="searching"></b-spinner>
+    </div>
+    
+    <div id="results" v-else-if="!searching && ($root.store.lastSearch || pressedSearchButton || playersArray.length>0 || teamsArray.length>0)">
     <h1>Results:</h1>
     <span v-if="playersArray.length==0 && teamsArray.length==0 && searchQuery!='' && !searching">No Results!</span>
     <div v-else>
@@ -114,6 +118,14 @@ export default {
           this.sortPlayersArray();
           this.filterPlayers();
         }
+        else if(response.status==204){//if no results were found
+              this.playersArray=[]
+              this.teamsArray=[]
+              this.sortedPlayersArray=[]
+              this.filteredPlayersArray=[]
+              this.sortedTeamsArray=[]
+              this.sortedAndFilteredArray=[]
+        }
         this.searching=false;
       }
     },
@@ -127,8 +139,8 @@ export default {
           this.playersArray=response.data.playersArray;
         this.coachesArray=response.data.coachesArray;
         this.teamsArray=response.data.teamsArray;
-        this.searching=false
       }
+      this.searching=false
       }
       
     },
@@ -226,5 +238,9 @@ export default {
 }
 #searchDiv{
   color:white
+}
+#searchingDiv{
+  display: flex;
+  flex-direction: row;
 }
 </style>

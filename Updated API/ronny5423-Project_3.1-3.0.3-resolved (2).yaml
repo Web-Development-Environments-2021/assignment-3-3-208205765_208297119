@@ -503,6 +503,21 @@ paths:
                 type: string
                 description: error message
                 example: One or more of the events you are trying to add was already added
+  /leagueManagment/getAllTeamsInLeague:
+    get:
+      tags:
+      - league managment
+      summary: get the names of all teams that in the league
+      responses:
+        "200":
+          description: the names of all the teams in the league
+          content:
+            application/json:
+              schema:
+                type: array
+                description: array which includes all the names of the teams
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
 components:
   schemas:
     Login:
@@ -660,6 +675,10 @@ components:
           type: string
           description: name of the player team
           example: Barcelona
+        team_id:
+          type: integer
+          description: team id
+          example: 1
         pic:
           type: string
           description: url of the player's picture
@@ -934,6 +953,18 @@ components:
       description: event's array to add to system
       items:
         $ref: '#/components/schemas/eventToAdd'
+    inline_response_200:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the team
+          example: Barcelona
+        id:
+          type: integer
+          description: id of the team
+          example: 1
+      description: object that containd id and name of the team
     mainPage_leagueDetails:
       type: object
       properties:
