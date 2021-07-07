@@ -10,12 +10,12 @@
           </div>
       <div  class="futureGamesDiv splitScreen">
           <h2>Future Games</h2>  
-          <GamePreview v-for="game in team.games.future_games_arr" :key="game.id" :game="game"></GamePreview>
+          <GamePreview v-for="game in team.games.future_games_arr" :key="game.id" :game="game" @changeTeam="changeTeam"></GamePreview>
           <p v-if="team.games.future_games_arr.length==0">There are no future games</p>
       </div>
       <div class="pastGamesDiv splitScreen">
           <h2>Past Games</h2>
-          <GamePreview v-for="game in team.games.past_games_arr" :key="game.id" :game="game"></GamePreview>
+          <GamePreview v-for="game in team.games.past_games_arr" :key="game.id" :game="game" @changeTeam="changeTeam"></GamePreview>
           <p v-if="team.games.past_games_arr.length==0">There are no past games</p>
       </div>
       </div>
@@ -50,6 +50,7 @@ export default {
     methods:{
         async getTeam(){
             let team
+            this.loading=true
             if(this.$route.params.team_name){//get team by name
                 team=await this.axios.get(`http://localhost:3000/personalPages/teamPageByName/${this.$route.params.team_name}`);
                 }
@@ -59,7 +60,13 @@ export default {
             if(team.status==200){
                 this.team=team.data
             }
+            else{
+                this.team=undefined
+            }
             this.loading=false;
+        },
+        changeTeam(){
+            this.getTeam()
         }
     }
 }

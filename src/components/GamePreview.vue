@@ -48,6 +48,7 @@ export default {
   methods:{
     moveToTeamPage(team_name){
       this.$router.push({name:"teamPageByName",params:{team_name:team_name}});
+      this.$emit("changeTeam")
     }
   } 
 };
