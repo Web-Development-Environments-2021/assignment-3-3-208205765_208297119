@@ -26,12 +26,12 @@
           <b-form-group label="Stadium" label-for="stadiumInput">
               <b-form-input id="stadiumInput" v-model="$v.form.stadium.$model" type="text" placeholder="Stadium" :state="validateState('stadium')"></b-form-input>
               <b-form-invalid-feedback v-if="!$v.form.stadium.required && stadium==''">Stadium name must be provided</b-form-invalid-feedback>
-              <b-form-invalid-feedback v-if="!$v.form.stadium.alpha && stadium!=''">Stadium name must contain only letters</b-form-invalid-feedback>
+              <b-form-invalid-feedback v-if="!$v.form.stadium.lettersValidator && stadium!=''">Stadium name must contain only letters</b-form-invalid-feedback>
               </b-form-group>
           <b-form-group label="Referee" label-for="refereeInput">
               <b-form-input v-model="$v.form.referee.$model" type="text" placeholder="Referee" :state="validateState('referee')"></b-form-input>
               <b-form-invalid-feedback v-if="!$v.form.referee.required && referee==''">Referee name must be provided</b-form-invalid-feedback>
-              <b-form-invalid-feedback v-if="!$v.form.referee.alpha && referee!=''">Referee name must contain only letters</b-form-invalid-feedback>
+              <b-form-invalid-feedback v-if="!$v.form.referee.lettersValidator && referee!=''">Referee name must contain only letters</b-form-invalid-feedback>
               </b-form-group>
               <b-button style="margin-right:1%" type="submit" variant="primary">Submit</b-button>
              <b-button type="reset" variant="danger">Reset</b-button>
@@ -60,7 +60,8 @@
 </template>
 
 <script>
-import{required,alpha} from "vuelidate/lib/validators";
+import{required,alpha,helpers} from "vuelidate/lib/validators";
+const lettersValidator=helpers.regex('validLetters',/^[a-z ]*$/i)
 export default {
     data(){
         return{
@@ -100,10 +101,10 @@ export default {
                 required
             },
             stadium:{
-                required,alpha
+                required,lettersValidator
             },
             referee:{
-                required,alpha
+                required,lettersValidator
             }
         }
     },
