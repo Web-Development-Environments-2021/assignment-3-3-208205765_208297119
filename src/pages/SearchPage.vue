@@ -149,7 +149,7 @@ export default {
         let filteredPlayers=[];
         if(this.playerPositionFilter && this.playerTeamFilter){//if user want to filter by team name and position
           for(let i=0;i<this.playersArray.length;i++){
-            if(this.playersArray[i].team_name==this.playerTeamFilter && this.playersArray[i].position_number.toString()==this.playerPositionFilter){
+            if(this.playersArray[i].team_name.toLowerCase()==this.playerTeamFilter.toLowerCase() && this.playersArray[i].position_number.toString()==this.playerPositionFilter){
               filteredPlayers.push(this.playersArray[i]);
             }
           }
@@ -215,10 +215,12 @@ export default {
       }
       else{
         let mergedFilteredAndSortedArray=[];
-        for( let i=0;i<this.sortedPlayersArray;i++){//find intersection between filtered players array and sorted players array
-          if(this.filteredPlayersArray.includes(this.sortedPlayersArray[i])){
-            mergedFilteredAndSortedArray.push(this.sortedPlayersArray[i]);
-          }
+        for( let i=0;i<this.sortedPlayersArray.length;i++){//find intersection between filtered players array and sorted players array
+         this.filteredPlayersArray.find(player =>{
+            if(this.sortedPlayersArray[i].player_id==player.player_id){
+               mergedFilteredAndSortedArray.push(this.sortedPlayersArray[i]);
+            }
+          })
         }
         this.sortedAndFilteredArray=mergedFilteredAndSortedArray;
       }
